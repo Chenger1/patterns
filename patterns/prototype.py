@@ -2,9 +2,9 @@ import copy
 
 
 class Document:
-    def __init__(self, name, format):
+    def __init__(self, name, doc_format):
         self.name = name 
-        self.format = format
+        self.format = doc_format
 
 
 class Prototype:
@@ -18,9 +18,9 @@ class Prototype:
         del self._objects[name]
 
     def clone(self, name):
-        new_obj = copy.deepcopy(self._objects[name])
-        new_obj.__dict__.update(self._objects[name].__dict__)
-        return new_obj
+        new_object = copy.deepcopy(self._objects[name])
+        new_object.__dict__.update(self._objects[name].__dict__)
+        return new_object
 
 
 if __name__ == '__main__':

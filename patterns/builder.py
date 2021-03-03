@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod, abstractproperty
+from abc import ABC, abstractmethod
 
 
 class Site:
@@ -10,6 +10,7 @@ class Site:
 
     def __str__(self):
         return 'Site: ' + ', '.join(self._parts)
+
 
 class Documentation:
     def __init__(self):
@@ -31,18 +32,18 @@ class Builder(ABC):
         self._product = None
 
     @abstractmethod
-    def setFrontPage(self, UI):
+    def set_front_page(self, UI):
         pass
 
     @abstractmethod
-    def setAdminPage(self):
+    def set_admin_page(self):
         pass
 
     @abstractmethod
-    def setPremiumFeature(self, package):
+    def set_premium_feature(self, package):
         pass
 
-    def getProduct(self):
+    def get_product(self):
         product = self._product
         self.reset()
         return product
@@ -52,13 +53,13 @@ class SiteBuilder(Builder):
     def reset(self):
         self._product = Site()
 
-    def setFrontPage(self, UI):
+    def set_front_page(self, UI):
         self._product.add(UI)
 
-    def setAdminPage(self):
+    def set_admin_page(self):
         self._product.add('AdminPage')
 
-    def setPremiumFeature(self, package):
+    def set_premium_feature(self, package):
         self._product.add(f'Set of features: {package}')
 
 
@@ -66,13 +67,13 @@ class SiteDocumentationBuilder(Builder):
     def reset(self):
         self._product = Documentation()
     
-    def setFrontPage(self, UI):
+    def set_front_page(self, UI):
         self._product.add("UI-docs", UI)
 
-    def setAdminPage(self):
+    def set_admin_page(self):
         self._product.add('AdminPage-docs', 'adminpage')
 
-    def setPremiumFeature(self, package):
+    def set_premium_feature(self, package):
         self._product.add('Advanced feature', package)
 
 
@@ -98,23 +99,23 @@ class Director:
         self._documentation_builder = build
 
     def build_minimal_product(self, UI):
-        self._site_builder.setFrontPage(UI)
-        self._site_builder.setAdminPage()
+        self._site_builder.set_front_page(UI)
+        self._site_builder.set_admin_page()
 
-        self._documentation_builder.setFrontPage(UI)
-        self._documentation_builder.setAdminPage()
+        self._documentation_builder.set_front_page(UI)
+        self._documentation_builder.set_admin_page()
 
-        return self._site_builder.getProduct(), self._documentation_builder.getProduct()
+        return self._site_builder.get_product(), self._documentation_builder.get_product()
 
     def build_premium_product(self, UI, package):
-        self._site_builder.setFrontPage(UI)
-        self._site_builder.setAdminPage()
-        self._site_builder.setPremiumFeature(package)
+        self._site_builder.set_front_page(UI)
+        self._site_builder.set_admin_page()
+        self._site_builder.set_premium_feature(package)
 
-        self._documentation_builder.setFrontPage(UI)
-        self._documentation_builder.setAdminPage()
-        self._documentation_builder.setPremiumFeature(package)
-        return self._site_builder.getProduct(), self._documentation_builder.getProduct()
+        self._documentation_builder.set_front_page(UI)
+        self._documentation_builder.set_admin_page()
+        self._documentation_builder.set_premium_feature(package)
+        return self._site_builder.get_product(), self._documentation_builder.get_product()
 
 
 if __name__ == '__main__':
@@ -134,7 +135,7 @@ if __name__ == '__main__':
     print(docs)
     print('\n')
 
-    site_builder.setFrontPage('Custom UI')
-    site_builder.setPremiumFeature('Custom Feature')
-    site = site_builder.getProduct()
+    site_builder.set_front_page('Custom UI')
+    site_builder.set_premium_feature('Custom Feature')
+    site = site_builder.get_product()
     print(site)

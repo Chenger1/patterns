@@ -1,11 +1,12 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
-class SmartPhone(metaclass=ABCMeta):
+
+class SmartPhone(ABC):
     def call(self, person: str):
-        print(f'Calling to {person}')
+        print(f'Calling to {person} using {self.__class__.__name__}')
 
     def send_message(self, person: str, message: str):
-        print(f'{person}: {message}')
+        print(f'{person}: {message} using {self.__class__.__name__}')
 
     @abstractmethod
     def open_store(self):
@@ -22,9 +23,9 @@ class AndroidPhone(SmartPhone):
         print('Opening Android Store')
 
 
-class Laptop(metaclass=ABCMeta):
+class Laptop(ABC):
     def create_file(self, filename: str) -> str:
-        return f'{filename}.file'
+        return f'{filename}.file on {self.__class__.__name__}'
 
     @abstractmethod
     def open_browser(self):
@@ -41,36 +42,35 @@ class AndroidLaptop(Laptop):
         print('Opening Chrome')
 
 
-class GadgetFactory(metaclass=ABCMeta):
+class GadgetFactory(ABC):
     @abstractmethod
-    def createSmartPhone(self) -> SmartPhone:
+    def create_smartphone(self) -> SmartPhone:
         pass
 
     @abstractmethod
-    def createLaptop(self) -> Laptop:
+    def create_laptop(self) -> Laptop:
         pass
 
 
 class WindowsFactory(GadgetFactory):
-    def createSmartPhone(self) -> SmartPhone:
+    def create_smartphone(self) -> SmartPhone:
         return WindowsPhone()
 
-    def createLaptop(self) -> Laptop:
+    def create_laptop(self) -> Laptop:
         return WindowsLaptop()
 
 
 class AndroidFactory(GadgetFactory):
-    def createSmartPhone(self) -> SmartPhone:
+    def create_smartphone(self) -> SmartPhone:
         return AndroidPhone()
 
-    def createLaptop(self) -> Laptop:
+    def create_laptop(self) -> Laptop:
         return AndroidLaptop()
 
 
-
 def application(factory: GadgetFactory):
-    smartphone = factory.createSmartPhone()
-    laptop = factory.createLaptop()
+    smartphone = factory.create_smartphone()
+    laptop = factory.create_laptop()
 
     smartphone.send_message('Vladislav', 'Hello')
     smartphone.open_store()
