@@ -15,3 +15,5 @@ if __name__ == '__main__':
     db.connect()
     db1 = DataBase()
     print(db is db1)
+    print(id(db))
+    print(id(db1))
