@@ -19,7 +19,6 @@ class Prototype:
 
     def clone(self, name):
         new_object = copy.deepcopy(self._objects[name])
-        new_object.__dict__.update(self._objects[name].__dict__)
         return new_object
 
 
