@@ -58,7 +58,7 @@ def client():
     result = adapter.analyze_data(data_from_db)
 
     for elem in result:
-        print(elem + '\t')
+        print(elem)
 
 
 if __name__ == '__main__':
