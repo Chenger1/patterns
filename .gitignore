@@ -132,3 +132,5 @@ dmypy.json
 /library/books/migrations/
 /library/ebooks/migrations/
 .idea
+
+*.db
