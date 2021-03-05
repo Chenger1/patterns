@@ -35,4 +35,5 @@ if __name__ == '__main__':
     
     new_obj.name = 'New file'
     print(f'New: {new_obj.name}. Old: {doc1.name}')
+    print(f'Old id - {id(doc1)} ---- New id - {id(new_obj)}')
 
