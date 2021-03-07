@@ -1,7 +1,7 @@
 from typing import List, Tuple, Dict
 import sqlite3
 
-import os.path
+import os
 
 
 class DataBase:
