@@ -13,8 +13,15 @@ class Book:
 
 
 class Format:
+    counter = 0
+
     def __init__(self, format_name: str):
         self.format_name = format_name
+        self._increase_counter()
+
+    @classmethod
+    def _increase_counter(cls):
+        cls.counter += 1
 
     def open_reader(self, book: Book):
         return f'Open {book.title}. {book.author} with format {self.format_name}'
@@ -33,18 +40,16 @@ def library():
     factory = BookFormatFactory()
     formats = ('pdf', 'fb2', 'epub', 'djvu', 'docx', 'txt')
     books = []
-    created_formats = set()
     for elem in range(500000):
         form = random.choice(formats)
         created_format = factory.get_format(form)
-        created_formats.add(created_format)
         book = Book(title=f'Title-{elem}',
                     author=f'Author-{elem}',
                     book_format=created_format)
         books.append(book)
     print(books[1000].open_reader())
     print(f'Books: {len(books)}')
-    print(f'Formats: {len(created_formats)}')
+    print(f'Formats: {Format.counter}')
 
 
 if __name__ == '__main__':
