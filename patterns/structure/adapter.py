@@ -16,14 +16,12 @@ class DataBase:
 
 
 class Analytics:
-    @classmethod
-    def analyze_data(cls, data:  Dict[str, Dict[str, List[int]]]) -> List[str]:
-        temp = cls._proceed_data(data)
-        result = cls._create_list_of_strings(temp)
+    def analyze_data(self, data:  Dict[str, Dict[str, List[int]]]) -> List[str]:
+        temp = self._proceed_data(data)
+        result = self._create_list_of_strings(temp)
         return result
 
-    @classmethod
-    def _proceed_data(cls, data:  Dict[str, Dict[str, List[int]]]) -> Dict[str, Dict[str, int]]:
+    def _proceed_data(self, data:  Dict[str, Dict[str, List[int]]]) -> Dict[str, Dict[str, int]]:
         temp = {}
         for key in data.keys():
             count = len(data[key]['speed']) - 1
@@ -31,8 +29,7 @@ class Analytics:
             temp[key] = {'count': count, 'average_speed': speed}
         return temp
 
-    @classmethod
-    def _create_list_of_strings(cls, data: Dict[str, Dict[str, int]]) -> List[str]:
+    def _create_list_of_strings(self, data: Dict[str, Dict[str, int]]) -> List[str]:
         result = []
         for key, value in data.items():
             result.append(f'For {key} average speed - {value["average_speed"]}. Total cars: {value["count"]}')
