@@ -31,8 +31,8 @@ class Stack:
     def __getitem__(self, item):
         return self._stack[item]
 
-    # def __iter__(self):
-    #     return NewIterator(self._stack)
+    def __iter__(self):
+        return NewIterator(self._stack)
 
     def __str__(self):
         return f'{self._stack}'
@@ -45,6 +45,5 @@ if __name__ == '__main__':
     print(collection)
 
     for elem in collection:
-        for i in collection:
-            print(elem+i)
+        print(elem)
 
