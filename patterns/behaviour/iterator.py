@@ -25,12 +25,6 @@ class Stack:
     def pop(self) -> Any:
         return self._stack.pop()
 
-    def is_empty(self) -> bool:
-        return len(self._stack) == 0
-
-    def __getitem__(self, item):
-        return self._stack[item]
-
     def __iter__(self):
         return NewIterator(self._stack)
 
