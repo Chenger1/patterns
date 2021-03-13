@@ -149,12 +149,12 @@ if __name__ == '__main__':
     print('SEND -------\n')
 
     print('SAVE - -----------------------------------')
-    com = client(email1, 'save')
+    com = client(email2, 'save')
     com.show_history()
     print('SAVE -------------\n')
 
     print('SCHEDULE ----------------')
-    com = client(email1, 'schedule')
+    com = client(email3, 'schedule')
     com.show_history()
     print(com.cancel())
 
