@@ -60,8 +60,8 @@ if __name__ == '__main__':
 
     context.state = state3
 
-    print(context.function(6))
+    print(context.function(5))
 
     context.state = state2
 
-    print(context.function(7))
+    print(context.function(5))
