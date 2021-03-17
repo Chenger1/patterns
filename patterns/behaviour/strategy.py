@@ -78,6 +78,8 @@ if __name__ == '__main__':
         elif file_type == 'xml':
             file_name = 'data.xml'
             strategy = XmlStrategy()
+        else:
+            continue
         file_path = os.path.join(BASE_DIR, file_name)
         context = Context(strategy)
         print(context.get_data(file_path))
