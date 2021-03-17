@@ -13,6 +13,8 @@ class Report(ABC):
     def handle(self, data):
         if self._next_handler:
             return self._next_handler.handle(data)
+        else:
+            return f'No one can handle this request'
 
 
 class FinancialReport(Report):
