@@ -1,5 +1,6 @@
 import datetime
 import random
+from copy import deepcopy
 
 
 class Document:
@@ -9,13 +10,11 @@ class Document:
         self._interval = interval
 
     def save(self):
-        return Memento(self._fonts, self._color, self._interval)
+        return Memento(deepcopy(self))
 
     def restore(self, memento: 'Memento'):
         state = memento.get_state()
-        self._fonts = state.get('fonts')
-        self._color = state.get('color')
-        self._interval = state.get('interval')
+        vars(self).update(vars(state))
 
     def change_fonts(self):
         self._fonts = random.choice(['Arial', 'Picket', 'Tahoma', 'Georgia', 'Helvetica', 'FontOne'])
@@ -25,11 +24,11 @@ class Document:
 
 
 class Memento:
-    def __init__(self, fonts: str, color: hex, interval: float):
-        self._state = {'fonts': fonts, 'color': color, 'interval': interval}
+    def __init__(self, state: Document):
+        self._state = state
         self._date = datetime.datetime.now()
 
-    def get_state(self) -> dict:
+    def get_state(self) -> Document:
         return self._state
 
     def __str__(self):
