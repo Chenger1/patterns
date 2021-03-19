@@ -9,6 +9,9 @@ class MenuComposite(ABC):
     def show(self, indent: int = 1):
         pass
 
+    def print_value(self, value: int = 0):
+        print(f'{self.value} - {value}')
+
     def add(self, child):
         pass
 
@@ -30,7 +33,9 @@ class MenuList(MenuComposite):
         self._children.append(child)
 
     def remove(self):
-        self._children.pop()
+        for child in self._children:
+            child.remove()
+        self._children = []
 
     def show(self, indent: int = 1):
         print(f'{" " * indent} -*{self.value}')
@@ -40,6 +45,7 @@ class MenuList(MenuComposite):
 
 def client(composite: MenuComposite):
     composite.show()
+    composite.print_value(10)
 
 
 if __name__ == '__main__':
@@ -48,6 +54,7 @@ if __name__ == '__main__':
     list2 = MenuList('List-2')
     list3 = MenuList('List-3')
     list4 = MenuList('List - 4')
+    list5 = MenuList('List - 5')
 
     elem1 = MenuItem('Elem-1')
     elem2 = MenuItem('Elem-2')
@@ -59,10 +66,14 @@ if __name__ == '__main__':
     elem8 = MenuItem('Elem-8')
     elem9 = MenuItem('Elem-9')
     elem10 = MenuItem('Elem-10')
+    elem11 = MenuItem('Elem-11')
+    elem12 = MenuItem('Elem-12')
 
 # Lists
     main_list.add(list1)
     main_list.add(list2)
+
+    list1.add(list5)
 
     list2.add(list3)
     list2.add(list4)
@@ -83,6 +94,14 @@ if __name__ == '__main__':
     list4.add(elem9)
     list4.add(elem10)
 
+    list5.add(elem11)
+    list5.add(elem12)
+
     main_list.add(elem8)
 
     client(main_list)
+    list1.remove()
+    print('------------After removing----------------------')
+    client(main_list)
+    print('--------------------')
+    client(list3)
