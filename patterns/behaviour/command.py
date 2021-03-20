@@ -35,10 +35,20 @@ class Handler:
         return f'Current command id is {id(command)}'
 
 
+class Interface:
+    def __init__(self, com1: Command1, com2: Command2):
+        self._com1 = com1
+        self._com2 = com2
+
+    def execute_commands(self):
+        print(com1.function1('Some value'))
+        print(com2.function1())
+        print(com2.function2())
+
+
 if __name__ == '__main__':
     handler = Handler()
     com1 = Command1(handler)
     com2 = Command2('Command name', handler)
-    print(com1.function1('Some value'))
-    print(com2.function1())
-    print(com2.function2())
+    interface = Interface(com1, com2)
+    interface.execute_commands()
