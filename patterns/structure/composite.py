@@ -15,7 +15,10 @@ class MenuComposite(ABC):
     def add(self, child):
         pass
 
-    def remove(self):
+    def remove_all(self):
+        pass
+
+    def remove(self, elem: 'MenuComposite'):
         pass
 
 
@@ -32,10 +35,13 @@ class MenuList(MenuComposite):
     def add(self, child: MenuComposite):
         self._children.append(child)
 
-    def remove(self):
+    def remove_all(self):
         for child in self._children:
-            child.remove()
+            child.remove_all()
         self._children = []
+
+    def remove(self, elem: MenuComposite):
+        self._children.remove(elem)
 
     def show(self, indent: int = 1):
         print(f'{" " * indent} -*{self.value}')
@@ -100,7 +106,8 @@ if __name__ == '__main__':
     main_list.add(elem8)
 
     client(main_list)
-    list1.remove()
+    list1.remove_all()
+    main_list.remove(list2)
     print('------------After removing----------------------')
     client(main_list)
     print('--------------------')
