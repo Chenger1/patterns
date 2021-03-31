@@ -2,53 +2,54 @@ from abc import ABC, abstractmethod
 
 
 class Command(ABC):
-    def __init__(self, handler: 'Handler'):
-        self._handler = handler
-
     @abstractmethod
-    def function1(self):
+    def function(self):
         pass
 
 
-class Command1(Command):
-    def function1(self, value: str) -> str:
-        return self._handler.simple_function(value)
+class CommandOn(Command):
+    def function(self):
+        return 'Computer is working now'
 
 
-class Command2(Command):
-    def __init__(self, name: str, handler: 'Handler'):
-        super().__init__(handler)
-        self._name = name
+class CommandOff(Command):
+    def function(self):
+        return 'Computer is off'
 
-    def function1(self) -> str:
-        return self._handler.simple_function(self._name)
 
-    def function2(self):
-        return self._handler.complex_function(self)
+class CommandClean(Command):
+    def function(self):
+        return 'Clean RAM'
+
+
+class CommandReboot(Command):
+    def function(self):
+        return 'Rebooting system...'
 
 
 class Handler:
-    def simple_function(self, value: str) -> str:
-        return f'{self.__class__.__name__} + {value}'
+    def __init__(self):
+        self._commands = []
 
-    def complex_function(self, command: Command) -> str:
-        return f'Current command id is {id(command)}'
+    def add(self, command: Command):
+        self._commands.append(command)
 
+    def execute(self):
+        for comm in self._commands:
+            print(comm.function())
 
-class Interface:
-    def __init__(self, com1: Command1, com2: Command2):
-        self._com1 = com1
-        self._com2 = com2
-
-    def execute_commands(self):
-        print(com1.function1('Some value'))
-        print(com2.function1())
-        print(com2.function2())
+#включить/выключить, очистить и перезагрузить системы - действия команд
 
 
 if __name__ == '__main__':
     handler = Handler()
-    com1 = Command1(handler)
-    com2 = Command2('Command name', handler)
-    interface = Interface(com1, com2)
-    interface.execute_commands()
+    handler.add(CommandOn())
+    handler.add(CommandOff())
+    handler.add(CommandReboot())
+    handler.add(CommandClean())
+
+    handler.execute()
+
+    print('____________')
+    handler.add(CommandOff())
+    handler.execute()

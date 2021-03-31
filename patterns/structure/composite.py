@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 class MenuComposite(ABC):
     def __init__(self, value: str):
         self.value = value
+        self.parent = None
 
     @abstractmethod
     def show(self, indent: int = 1):
@@ -34,10 +35,12 @@ class MenuList(MenuComposite):
 
     def add(self, child: MenuComposite):
         self._children.append(child)
+        child.parent = self
 
     def remove_all(self):
         for child in self._children:
             child.remove_all()
+            child.parent = None
         self._children = []
 
     def remove(self, elem: MenuComposite):
